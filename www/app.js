@@ -8,6 +8,8 @@ let map
 
 Vue.component('reviews-carousel', {
   template: `
+  <div>
+  <write-review-button :station="station" :index="index"></write-review-button>
   <div v-if="hasReviews">
   <div v-for="(review,index) in reviews" style="color:black">
   <p>User: {{review.user}}</p>
@@ -17,18 +19,18 @@ Vue.component('reviews-carousel', {
   </div>
   </div>
   <p v-else style="color:black">No reviews available</p>
+  </div>
   `,
   props: ['station', 'index'],
   data() {
     return {
-      reviews: [],
-      review: ""
+      reviews: []
     }
   },
   computed: {
     hasReviews() {
       if (this.reviews !== undefined) {
-        return this.reviews.length !== 0
+        return true
       }
       return false;
     },
@@ -39,8 +41,9 @@ Vue.component('reviews-carousel', {
       .then(res => {
         if (res.status == 200) {
           if (res.data != null) {
-            this.reviews = res.data.reviews
-            eventBus.$emit("reviewsFromCarousel", this.reviews)
+            if (res.data.reviews !== undefined) {
+              this.reviews = res.data.reviews // ???
+            }
           }
         }
       })
@@ -48,19 +51,16 @@ Vue.component('reviews-carousel', {
         this.advice = "There was an error: " + error.message;
       });
 
-    eventBus.$on("reviewSubmitted", review => {
-      if (this.reviews !== undefined) { 
-        this.$set(this.reviews, review.index, review) 
+    eventBus.$on("reviewSubmitted" + this._uid, review => {
+      if (this.reviews !== undefined) {
+        this.$set(this.reviews, review.index, review)
       }
     })
-    eventBus.$on("reviewCreated", review => {
-      if(this.reviews !== undefined)
-        this.reviews.push(review)
-      
-      })
+    eventBus.$on("reviewCreated" + this.station.id, review => {
+      this.reviews.push(review)
+    })
 
-    eventBus.$emit("reviewsFromCarousel", this.reviews)
-  }
+  },
 })
 
 Vue.component('station-card', {
@@ -300,7 +300,7 @@ Vue.component('settings-button', {
 })
 
 Vue.component('write-review-button', {
-  props: ['station', 'index', 'review'],
+  props: ['station', 'index'],
   template: `
   <div>
   <button @click="showModal" class="ui button orange">
@@ -322,7 +322,7 @@ Vue.component('write-review-button', {
     <textarea v-model="body" placeholder="Write a review..."></textarea>
   </div>
   <star-rating v-model="rating" :show-rating=false></star-rating>
-  <button class="ui button" type="submit" @click="submit(station)">Submit</button>
+  <button class="ui button" type="submit" @click="writeReview">Submit</button>
 </div></div></div>
   `,
   created() {
@@ -331,13 +331,14 @@ Vue.component('write-review-button', {
     return {
       user: "",
       body: "",
-      rating: -1
+      rating: -1,
+      review: {}
     }
   },
   methods: {
-    submit(station) {
+    writeReview() {
       axios
-        .post("/api/station/" + station.id + "/review", {
+        .post("/api/station/" + this.station.id + "/review", {
           user: this.user,
           body: this.body,
           rating: this.rating,
@@ -346,12 +347,8 @@ Vue.component('write-review-button', {
         .then(res => {
           if (res.status == 200) {
             if (res.data != null) {
-              const review = {
-                body: res.data.body,
-                rating: res.data.rating,
-                user: res.data.user
-              }
-              eventBus.$emit("reviewCreated", review)
+              this.review = res.data
+              eventBus.$emit("reviewCreated" + this.station.id, this.review)
             }
           }
         })
@@ -363,30 +360,6 @@ Vue.component('write-review-button', {
       $(this.computedClassSelector)
         .modal('show')
         ;
-    },
-    updateReview() {
-      axios
-        .put("/api/review/" + this.review.id, {
-          user: this.user,
-          body: this.body,
-          rating: this.rating
-        })
-        .then(res => {
-          if (res.status == 200) {
-            if (res.data != null) {
-              const review = {
-                body: res.data.body,
-                rating: res.data.rating,
-                user: res.data.user,
-                index: this.index
-              }
-              eventBus.$emit("reviewSubmitted", review)
-            }
-          }
-        })
-        .catch(error => {
-          this.advice = "There was an error: " + error.message;
-        });
     }
   },
   computed: {
@@ -461,7 +434,7 @@ Vue.component('edit-review-button', {
                 user: res.data.user,
                 index: this.index
               }
-              eventBus.$emit("reviewSubmitted", review)
+              eventBus.$emit("reviewEdited", review)
             }
           }
         })
@@ -569,7 +542,6 @@ Country:
   <div class=" content">
   <span>
   <settings-button :station="station" :index="index"></settings-button>
-  <write-review-button :station="station" :index="index"></write-review-button>
   </span>
  <reviews-carousel :station="station" :index="index"></reviews-carousel>
   </div>
@@ -599,7 +571,6 @@ Country:
     return {
       stations: [],
       networksLength: 0,
-      reviews: [],
       isSafe: true,
       isOpen: true,
       currentStation: {},
@@ -636,73 +607,8 @@ Country:
 
     $('.ui.modal')
       .modal()
-
-    eventBus.$on("reviewSubmitted", reviews => {
-      this.station.reviews = reviews
-
-    })
-    eventBus.$on('reviewsFromCarousel', reviews => {
-      this.station.reviews = reviews
-    })
-
-
-    // axios
-    //   .get("/api/review/" + review.id)
-    //   .then(res => {
-    //     if (res.status == 200) {
-    //       if (res.data != null) {
-    //         this.body = res.data.body
-    //       }
-    //     }
-    //   })
-    //   .catch(error => {
-    //     this.advice = "There was an error: " + error.message;
-    //   });
-
   },
   methods: {
-    submit(station) {
-      axios
-        .post("/api/station/" + station.id + "/review", {
-          user: this.user,
-          body: this.body,
-          rating: this.rating
-        })
-        .then(res => {
-          if (res.status == 200) {
-            if (res.data != null) {
-              const review = {
-                body: res.data.body,
-                rating: res.data.rating,
-                user: res.data.user
-              }
-              eventBus.$emit("reviewSubmitted", review)
-            }
-          }
-        })
-        .catch(error => {
-          this.advice = "There was an error: " + error.message;
-        });
-    },
-    updateAvailable: function (station) {
-      axios
-        .post("/api/station/" + station.id, {
-          id: station.id,
-          free: station.free
-        })
-        .then(res => {
-          if (res.status == 200) {
-            if (res.data != null) {
-              station.free = res.data.free
-            }
-          }
-        })
-        .catch(error => {
-          this.advice = "There was an error: " + error.message;
-        });
-    },
-
-
     loadReviews: function (stationId) {
       axios
         .get("/api/station/" + stationId)
@@ -717,9 +623,6 @@ Country:
         .catch(error => {
           this.advice = "There was an error: " + error.message;
         });
-    },
-    availableReviews: function () {
-      reviews[0] === undefined ? false : true
     }
   },
 });
