@@ -6,22 +6,18 @@ let markerCluster
 // Reference to map so markers can be re-added on zoom_out
 let map
 
-Vue.component('reviews-carousel', {
+Vue.component('station', {
   template: `
   <div>
-  <write-review-button :station="station" :index="index"></write-review-button>
+  <write-review-button :station="station"></write-review-button>
   <div v-if="hasReviews">
   <div v-for="(review,index) in reviews" style="color:black">
-  <p>User: {{review.user}}</p>
-  <p>Body: {{review.body}}</p>
-  <star-rating :rating="review.rating" :read-only=true :show-rating=false></star-rating>
-  <edit-review-button :station="station" :review="review" :index="index" ></edit-review-button>
+  <review :review="review" :index="index" :station="station"></review>
   </div>
   </div>
   <p v-else style="color:black">No reviews available</p>
   </div>
   `,
-  props: ['station', 'index'],
   data() {
     return {
       reviews: []
@@ -42,7 +38,7 @@ Vue.component('reviews-carousel', {
         if (res.status == 200) {
           if (res.data != null) {
             if (res.data.reviews !== undefined) {
-              this.reviews = res.data.reviews // ???
+              this.reviews = res.data.reviews
             }
           }
         }
@@ -51,16 +47,26 @@ Vue.component('reviews-carousel', {
         this.advice = "There was an error: " + error.message;
       });
 
-    eventBus.$on("reviewSubmitted" + this._uid, review => {
-      if (this.reviews !== undefined) {
-        this.$set(this.reviews, review.index, review)
-      }
-    })
     eventBus.$on("reviewCreated" + this.station.id, review => {
       this.reviews.push(review)
     })
-
+    eventBus.$on("reviewEdited" + this.station.id, review => {
+      this.$set(this.reviews, review.index, review)
+    })
   },
+  props:['station']
+})
+
+Vue.component('review', {
+  template: `
+  <div>
+  <p>User: {{review.user}}</p>
+  <p>Body: {{review.body}}</p>
+  <star-rating :rating="review.rating" :read-only=true :show-rating=false></star-rating>
+  <edit-review-button :station="station" :review="review" :index="index" ></edit-review-button>
+  </div>
+  `,
+  props: ['review', 'index', 'station']
 })
 
 Vue.component('station-card', {
@@ -300,7 +306,7 @@ Vue.component('settings-button', {
 })
 
 Vue.component('write-review-button', {
-  props: ['station', 'index'],
+  props: ['station'],
   template: `
   <div>
   <button @click="showModal" class="ui button orange">
@@ -376,7 +382,6 @@ Vue.component('write-review-button', {
 })
 
 Vue.component('edit-review-button', {
-  props: ['station', 'index', 'review'],
   template: `
   <div>
   <button @click="showModal" class="ui button blue">
@@ -391,7 +396,7 @@ Vue.component('edit-review-button', {
 <div class="ui form">
 <div class="field">
 <label>Name</label>
-<input type="text" name="name" v-model="user">
+<input type="text" name="name" v-model="user" disabled>
 </div>
 <div class="field">
   <label>Review</label>
@@ -403,8 +408,6 @@ Vue.component('edit-review-button', {
 
 </div>
   `,
-  created() {
-  },
   data() {
     return {
       user: this.review.user,
@@ -421,7 +424,6 @@ Vue.component('edit-review-button', {
     updateReview() {
       axios
         .put("/api/review/" + this.review.id, {
-          user: this.user,
           body: this.body,
           rating: this.rating
         })
@@ -434,7 +436,7 @@ Vue.component('edit-review-button', {
                 user: res.data.user,
                 index: this.index
               }
-              eventBus.$emit("reviewEdited", review)
+              eventBus.$emit("reviewEdited" + this.station.id, review)
             }
           }
         })
@@ -453,7 +455,8 @@ Vue.component('edit-review-button', {
     getUniqueId() {
       return "" + this.index + this.station.id;
     }
-  }
+  },
+  props: ['station', 'index', 'review'],
 })
 
 
@@ -519,7 +522,7 @@ Country:
 {{networkCountry}}
 </div></div></div>
   <tr>
-    <tr v-bind:key="station.id" v-bind:station="station" style="width:95%;margin-left:auto; margin-right:auto; margin-top:15px; margin-bottom:15px" class="ui card" v-for="(station, index) in stations">
+    <tr v-bind:key="station.id" style="width:95%;margin-left:auto; margin-right:auto; margin-top:15px; margin-bottom:15px" class="ui card" v-for="(station, index) in stations">
     <div v-on:click="loadReviews(station.id)" class="title">
     <td>
     
@@ -543,7 +546,7 @@ Country:
   <span>
   <settings-button :station="station" :index="index"></settings-button>
   </span>
- <reviews-carousel :station="station" :index="index"></reviews-carousel>
+ <station :station="station" :index="index"></station>
   </div>
   <i class="settings icon"></i>
   <div :class="'idx' + index + ' ui modal settings'">
@@ -577,7 +580,6 @@ Country:
       rating: 0,
       body: "",
       user: "",
-      station: {},
       networkName: "",
       networkCity: "",
       networkCompany: "",
