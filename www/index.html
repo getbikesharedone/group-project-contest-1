@@ -4,26 +4,19 @@
 <head>
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 	<meta charset="utf-8">
-	<title>Simple markers</title>
-	<link rel="stylesheet" href="semantic.css">
-	<link rel="stylesheet" href="icon.min.css">
-	<link rel="stylesheet" href="rating.min.css">
-	<link rel="stylesheet" href="accordion.min.css">
-	<link rel="stylesheet" href="modal.min.css">
-	<link rel="stylesheet" href="transition.min.css">
-	<link rel="stylesheet" href="dimmer.min.css">
-	<link rel="stylesheet" href="checkbox.min.css">
+	<title>Getterdone - Bikeshare</title>
+	<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
 	<style>
 		html,
 		body,
 		#app,
 		.ui.grid {
 			height: 100%;
-				margin: 0;
-				padding: 0;
+			margin: 0;
+			padding: 0;
 		}
 
-		#stations-table {
+		#stations-list {
 			padding: 0
 		}
 
@@ -31,7 +24,7 @@
 			border-radius: 0
 		}
 
-		#stations-table>table>tbody>tr>td>div {
+		#stations-list>table>tbody>tr>td>div {
 			width: 100%
 		}
 
@@ -39,84 +32,108 @@
 			color: green
 		}
 
-		#stations-table > div > table > tbody > tr > td > div > div > span > i{
-			color:green
-		}
-		#stations-table > div > table > tbody > tr > td > div > div > span{
-			color:black
+		#stations-list>div>table>tbody>tr>td>div>div>span>i {
+			color: green
 		}
 
-		#stations-table > div > table > tbody > tr > td > div > div{
-			margin-left:10px;
-			margin-right:10px;
+		#stations-list>div>table>tbody>tr>td>div>div>span {
+			color: black
 		}
-		#stations-table > div > table > thead > tr > th > a > span{
-			color:black
+
+		#stations-list>div>table>tbody>tr>td>div>div {
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+
+		#stations-list>div>table>thead>tr>th>a>span {
+			color: black
 		}
 	</style>
 	<link rel="stylesheet" href="/styles.css">
 	<style>
-		#stations-table > div > table > thead > tr > th > div > div{
+		#stations-list>div>table>thead>tr>th>div>div {
 			margin-left: 10px;
 			margin-right: 10px;
 		}
-		#stations-table > div > table > thead > tr > th > div > div:nth-child(3){
-			color:black
+
+		#stations-list>div>table>thead>tr>th>div>div:nth-child(3) {
+			color: black
 		}
-		#stations-table > div > table > tbody > tr > td > div > div > span > span{
-			color:darkorange
+
+		#stations-list>div>table>tbody>tr>td>div>div>span>span {
+			color: darkorange
 		}
-		#stations-table > div > div > table > thead > tr > th > div > div:nth-child(3){
-			color:black;
-			margin-left:30px;
+
+		#stations-list>div>div>table>thead>tr>th>div>div:nth-child(3) {
+			color: black;
+			margin-left: 30px;
 		}
+		.blackText{color:black}
+
 	</style>
+	<link rel="stylesheet" href="/checkbox.min.css">
+	<link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <!-- template for menu -->
 <script type="text/x-template" id="modal-template">
 	<transition name="modal">
-	  <div class="modal-mask">
-		<div class="modal-wrapper">
-		  <div class="modal-container">
-				<button class="modal-default-button" @click="$emit('close')">
+		<div class="modal-mask">
+			<div class="modal-wrapper">
+				<div class="modal-container">
+					<button class="modal-default-button" @click="$emit('close')">
 				  OK
 				</button>
-		  </div>
+				</div>
+			</div>
 		</div>
-	  </div>
 	</transition>
-  </script>
+</script>
 
 <body>
 	<div id="app">
+			
+
 		<div class="ui stackable grid">
-				<div class="ten wide column" id="map"></div>
-				<div class="six wide column" id="stations-table">
-					<stations-table></stations-table>
-				</div>
+			<div class="ten wide column" id="map"></div>
+			<div class="six wide column" id="stations-list">
+				<stations-list></stations-list>
+			</div>
 		</div>
 		<a class="mobile tablet hidden" href="https://github.com/getbikesharedone/seagulltuna"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
-			<div id="map"></div>
-			<modal v-if="showModal" @close="showModal = false"></modal>
-			</div>
+		<div id="map"></div>
+		<modal v-if="showModal" @close="showModal = false"></modal>
+	</div>
 	</div>
 
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBj_B8fJmNw2_QFQMypsw_9dYXOe5wB13Q"></script>
 	<script src="/vue.js"></script>
 	<script src="/axios.min.js"></script>
-	<script src="jquery-3.2.1.min.js"></script>
-	<script src="semantic.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	 crossorigin="anonymous"></script>
 	<script src="/markerclusterer.js"></script>
-	<script src="/rating.min.js"></script>
-	<script src="/accordion.min.js"></script>
-	<script src="/modal.min.js"></script>
-	<script src="/transition.min.js"></script>
-	<script src="/dimmer.min.js"></script>
-	<script src="/checkbox.min.js"></script>
+	<script src="/semantic/dist/semantic.min.js"></script>
+	<script src="https://unpkg.com/vue-star-rating/dist/star-rating.min.js"></script>
 	<script src="/app.js"></script>
-	<link href="/menu.css" rel='stylesheet' type='text/css'>
-	<script type="text/javascript">
-    </script>
+	<script>$('.ui.modal')
+			.modal()
+			$('.ui.rating')
+			.rating()</script>
 </body>
 
 </html>
