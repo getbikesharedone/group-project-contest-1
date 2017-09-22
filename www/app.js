@@ -1,10 +1,6 @@
+'use strict'
+
 const eventBus = new Vue();
-
-// Stores references so clearMarkers() can be called
-let markerCluster
-
-// Reference to map so markers can be re-added on zoom_out
-let map
 
 Vue.component('station', {
   template: `
@@ -54,7 +50,7 @@ Vue.component('station', {
       this.$set(this.reviews, review.index, review)
     })
   },
-  props:['station']
+  props: ['station']
 })
 
 Vue.component('review', {
@@ -629,90 +625,91 @@ Country:
   },
 });
 
-const appVue = new Vue({
+new Vue({
   el: "#app",
   data: {
     networks: [],
     stations: [],
     stationMarkers: [],
-    activeNetwork: {},
-    showModal: false
+    selectedNetwork: null,
+    showModal: false,
+    map: null,
+    markerCluster: null
   },
   created() {
     this.getNetworks()
   },
 
   methods: {
-    initMap: function () {
-      let myLatLng = { lat: 0, lng: 0 };
-
-      map = new google.maps.Map(document.getElementById('map'), {
+    initMap(map) {
+      this.map = new google.maps.Map($('#map'), {
         zoom: 3,
-        center: myLatLng
+        center: { lat: 0, lng: 0 }
       });
-
-      networkMarkers = this.addNetworkMarkers(map, this.networks);
-      markerCluster = new MarkerClusterer(map, networkMarkers,
+      console.log("1")
+console.log(this.map)
+      let networkMarkers = this.addNetworkMarkers(map);
+      this.markerCluster = new MarkerClusterer(map, networkMarkers,
         { imagePath: '/m' });
-
-      const vm = this;
-      map.addListener('zoom_changed', function () {
-        zoomLevel = map.getZoom();
-        if (markerCluster.getTotalMarkers() === 0 && zoomLevel < 10) {
-          networkMarkers = vm.addNetworkMarkers(map, vm.networks)
-          markerCluster = new MarkerClusterer(map, networkMarkers,
+        console.log("2")
+        console.log(this.map)
+      map.addListener('zoom_changed', () => {
+        console.log(this.map)
+        const zoomLevel = map.getZoom()
+        const totalMarkers = this.markerCluster.getTotalMarkers()
+        if (totalMarkers === 0 && zoomLevel < 10) {
+          networkMarkers = this.addNetworkMarkers(map, this.networks)
+          this.markerCluster = new MarkerClusterer(map, networkMarkers,
             { imagePath: '/m' })
-          vm.deleteStationMarkers()
+          this.deleteStationMarkers()
         }
       });
     },
-    setMapOnAll: function (map) {
-      for (var i = 0; i < this.stationMarkers.length; i++) {
+    setMapOnAll(map) {
+      const stationMarkersLength = this.stationMarkers.length
+      for (let i = 0; i < stationMarkersLength; i++) {
         this.stationMarkers[i].setMap(map);
       }
     },
-    deleteStationMarkers: function () {
+    deleteStationMarkers() {
       this.clearStationMarkers();
       this.stationMarkers = [];
     },
-    clearStationMarkers: function () {
+    clearStationMarkers() {
       this.setMapOnAll(null);
     },
-    addNetworkMarkers: function (map, networks) {
+    addNetworkMarkers(map) {
       let networkMarkers = []
-      const vm = this
-      for (let i = 0; i < networks.length; i++) {
-        const network = networks[i]
+      const networks = this.networks;
+      const networksLength = networks.length
 
-        let marker = new google.maps.Marker({
+      for (let i = 0; i < networksLength; i++) {
+        const network = networks[i]
+        const networkLat = network.lat
+        const networkLng = network.lng
+        const networkName = network.name
+
+        const marker = new google.maps.Marker({
           position: {
-            lat: network.lat,
-            lng: network.lng,
+            lat: networkLat,
+            lng: networkLng,
           },
           map,
-          title: network.name,
+          title: networkName,
           icon: '/bike.png',
           network,
         })
 
-        marker.addListener('click', function () {
-          vm.getStations(this.network)
-          eventBus.$on("stationsLoaded", function () {
-            vm.addStationMarkers(map, vm.stations)
-            var bounds = new google.maps.LatLngBounds();
-            for (var i = 0; i < vm.stations.length; i++) {
-              bounds.extend(new google.maps.LatLng(vm.stations[i].lat, vm.stations[i].lng));
-            }
-            map.fitBounds(bounds);
-            markerCluster.clearMarkers()
-          });
+        marker.addListener('click', (network) => {
+          this.getStations(map, network)
+
         });
 
         networkMarkers.push(marker)
       }
       return networkMarkers;
     },
-    addStationMarkers: function (map, stations) {
+    addStationMarkers(map, stations) {
       for (let i = 0; i < stations.length; i++) {
         const station = stations[i]
         let marker;
@@ -739,52 +736,43 @@ const appVue = new Vue({
       }
       return this.stationMarkers
     },
-    getStations: function (network) {
+    getStations(map, network) {
       axios
         .get("/api/network/" + network.id)
         .then(res => {
-          if (res.status == 200) {
-            if (res.data != null) {
-              this.activeNetwork = res.data;
-              this.stations = res.data.stations;
-              eventBus.$emit("stationsLoaded", this.stations);
-              eventBus.$emit("activeNetworkSelected", this.activeNetwork);
-            }
+          this.selectedNetwork = res.data;
+          this.stations = this.selectedNetwork.stations;
+        })
+        .then(() => {
+          this.addStationMarkers(map, this.stations)
+          const bounds = new google.maps.LatLngBounds();
+          const stations = this.stations;
+          const stationsLength = stations.length;
+
+          for (let i = 0; i < stationsLength; i++) {
+            const stationLat = stations[i].lat;
+            const stationLng = stations[i].lng;
+            bounds.extend(new google.maps.LatLng(stationLat, stationLng));
           }
+          map.fitBounds(bounds);
+          this.markerCluster.clearMarkers()
         })
         .catch(error => {
-          this.advice = "There was an error: " + error.message;
+          console.log(error)
         });
     },
-    getNetworks: function () {
+    getNetworks() {
       axios
         .get("/api/network")
         .then(res => {
-          if (res.status == 200) {
-            if (res.data != null) {
-              this.networks = res.data;
-              eventBus.$emit("networksLoaded", this.networks);
-            }
-          }
+          this.networks = res.data;
         })
         .catch(error => {
-          this.advice = "There was an error: " + error.message;
+          console.log(error)
         });
     }
   },
   mounted() {
-    eventBus.$on("networksLoaded", networks => {
-      this.initMap()
-    });
-    eventBus.$on("stationsLoaded", stations => {
-      this.addStationMarkers(map, stations);
-    });
-    eventBus.$on("clickStation", station => {
-      // display modal
-      this.showModal = true;
-
-    });
-
-
+    this.initMap(this.map)
   }
 }); 
