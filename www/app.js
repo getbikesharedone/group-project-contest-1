@@ -6,6 +6,87 @@ let markerCluster
 // Reference to map so markers can be re-added on zoom_out
 let map
 
+var mapstyle = [
+  {
+      "featureType": "all",
+      "elementType": "all",
+      "stylers": [
+          {
+              "invert_lightness": true
+          },
+          {
+              "saturation": 20
+          },
+          {
+              "lightness": 50
+          },
+          {
+              "gamma": 0.4
+          },
+          {
+              "hue": "#ff9933"
+          }
+      ]
+  },
+  {
+      "featureType": "all",
+      "elementType": "geometry",
+      "stylers": [
+          {
+              "visibility": "simplified"
+          }
+      ]
+  },
+  {
+      "featureType": "all",
+      "elementType": "labels",
+      "stylers": [
+          {
+              "visibility": "on"
+          }
+      ]
+  },
+  {
+      "featureType": "administrative",
+      "elementType": "all",
+      "stylers": [
+          {
+              "color": "#ffffff"
+          },
+          {
+              "visibility": "simplified"
+          }
+      ]
+  },
+  {
+      "featureType": "administrative.land_parcel",
+      "elementType": "geometry.stroke",
+      "stylers": [
+          {
+              "visibility": "simplified"
+          }
+      ]
+  },
+  {
+      "featureType": "landscape",
+      "elementType": "all",
+      "stylers": [
+          {
+              "color": "#7D3E00"
+          }
+      ]
+  },
+  {
+      "featureType": "water",
+      "elementType": "geometry.fill",
+      "stylers": [
+          {
+              "color": "#232f3a"
+          }
+      ]
+  }
+]
+
 Vue.component('station', {
   template: `
   <div>
@@ -648,7 +729,8 @@ const appVue = new Vue({
 
       map = new google.maps.Map(document.getElementById('map'), {
         zoom: 3,
-        center: myLatLng
+        center: myLatLng,
+        styles: mapstyle
       });
 
       networkMarkers = this.addNetworkMarkers(map, this.networks);
@@ -728,9 +810,9 @@ const appVue = new Vue({
             title: station.name,
             icon: {
               url: '/helmet.png',
-              size: new google.maps.Size(32, 32),
+              size: new google.maps.Size(24, 24),
               origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(16, 16),
+              anchor: new google.maps.Point(12, 12),
             },
             station,
           })
