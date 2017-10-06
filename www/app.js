@@ -182,7 +182,7 @@ Vue.component('free-bikes-counter', {
     return { free: this.station.free }
   },
   created() {
-    eventBus.$on('freeUpdated', (free) => {
+    eventBus.$on('freeUpdated' + this.station.id, (free) => {
       this.free = free
     })
   }
@@ -209,7 +209,7 @@ Vue.component('update-free-bikes-button', {
   },
   methods: {
     saveFree() {
-      eventBus.$emit('freeUpdated', this.free)
+      eventBus.$emit('freeUpdated' + this.station.id, this.free)
       axios
         .post("/api/station/" + this.station.id, {
           id: this.station.id,
@@ -229,10 +229,10 @@ Vue.component('update-free-bikes-button', {
     },
   },
   created() {
-    eventBus.$on('openToggled', (open) => {
+    eventBus.$on('openToggled' + this.station.id, (open) => {
       this.open = open
     })
-    eventBus.$on('safeToggled', (safe) => {
+    eventBus.$on('safeToggled' + this.station.id, (safe) => {
       this.safe = safe
     })
   }
@@ -250,7 +250,7 @@ Vue.component('open-checkbox', {
     return { open: this.station.open }
   },
   created() {
-    eventBus.$on('openToggled', (open) => {
+    eventBus.$on('openToggled' + this.station.id, (open) => {
       this.open = open
     })
   }
@@ -273,7 +273,7 @@ Vue.component('open-checkbox-toggle', {
   },
   methods: {
     saveOpen() {
-      eventBus.$emit('openToggled', this.open)
+      eventBus.$emit('openToggled' + this.station.id, this.open)
       axios
         .post("/api/station/" + this.station.id, {
           id: this.station.id,
@@ -294,7 +294,7 @@ Vue.component('open-checkbox-toggle', {
     }
   },
   created() {
-    eventBus.$on('safeToggled', (safe) => {
+    eventBus.$on('safeToggled' + this.station.id, (safe) => {
       this.safe = safe
     })
   }
@@ -312,7 +312,7 @@ Vue.component('safe-checkbox', {
     return { safe: this.station.safe }
   },
   created() {
-    eventBus.$on('safeToggled', (safe) => {
+    eventBus.$on('safeToggled' + this.station.id, (safe) => {
       this.safe = safe
     })
   }
@@ -335,7 +335,7 @@ Vue.component('safe-checkbox-toggle', {
   },
   methods: {
     saveSafe() {
-      eventBus.$emit('safeToggled', this.safe)
+      eventBus.$emit('safeToggled' + this.station.id, this.safe)
       axios
         .post("/api/station/" + this.station.id, {
           id: this.station.id,
@@ -355,7 +355,7 @@ Vue.component('safe-checkbox-toggle', {
     }
   },
   created() {
-    eventBus.$on('openToggled', (open) => {
+    eventBus.$on('openToggled' + this.station.id, (open) => {
       this.open = open
     })
   }
