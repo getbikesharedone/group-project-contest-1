@@ -4,7 +4,9 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
+	"os"
 	"strconv"
 	"time"
 
@@ -22,6 +24,11 @@ func main() {
 	var reBuildDB = flag.Bool("rebuild", false, "rebuild database")
 	var devMode = flag.Bool("dev", false, "use the www directory for serving content")
 	flag.Parse()
+
+	if _, err := os.Stat("bsn.db"); os.IsNotExist(err) {
+		fmt.Println("no database")
+		*reBuildDB = true
+	}
 
 	if *reBuildDB {
 		if err := buildDatabase(); err != nil {
