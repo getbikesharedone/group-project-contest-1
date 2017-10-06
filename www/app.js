@@ -6,6 +6,87 @@ let markerCluster
 // Reference to map so markers can be re-added on zoom_out
 let map
 
+var mapstyle = [
+  {
+      "featureType": "all",
+      "elementType": "all",
+      "stylers": [
+          {
+              "invert_lightness": true
+          },
+          {
+              "saturation": 20
+          },
+          {
+              "lightness": 50
+          },
+          {
+              "gamma": 0.4
+          },
+          {
+              "hue": "#ff9933"
+          }
+      ]
+  },
+  {
+      "featureType": "all",
+      "elementType": "geometry",
+      "stylers": [
+          {
+              "visibility": "simplified"
+          }
+      ]
+  },
+  {
+      "featureType": "all",
+      "elementType": "labels",
+      "stylers": [
+          {
+              "visibility": "on"
+          }
+      ]
+  },
+  {
+      "featureType": "administrative",
+      "elementType": "all",
+      "stylers": [
+          {
+              "color": "#ffffff"
+          },
+          {
+              "visibility": "simplified"
+          }
+      ]
+  },
+  {
+      "featureType": "administrative.land_parcel",
+      "elementType": "geometry.stroke",
+      "stylers": [
+          {
+              "visibility": "simplified"
+          }
+      ]
+  },
+  {
+      "featureType": "landscape",
+      "elementType": "all",
+      "stylers": [
+          {
+              "color": "#7D3E00"
+          }
+      ]
+  },
+  {
+      "featureType": "water",
+      "elementType": "geometry.fill",
+      "stylers": [
+          {
+              "color": "#232f3a"
+          }
+      ]
+  }
+]
+
 Vue.component('station', {
   template: `
   <div>
@@ -101,7 +182,7 @@ Vue.component('free-bikes-counter', {
     return { free: this.station.free }
   },
   created() {
-    eventBus.$on('freeUpdated', (free) => {
+    eventBus.$on('freeUpdated' + this.station.id, (free) => {
       this.free = free
     })
   }
@@ -128,7 +209,7 @@ Vue.component('update-free-bikes-button', {
   },
   methods: {
     saveFree() {
-      eventBus.$emit('freeUpdated', this.free)
+      eventBus.$emit('freeUpdated' + this.station.id, this.free)
       axios
         .post("/api/station/" + this.station.id, {
           id: this.station.id,
@@ -148,10 +229,10 @@ Vue.component('update-free-bikes-button', {
     },
   },
   created() {
-    eventBus.$on('openToggled', (open) => {
+    eventBus.$on('openToggled' + this.station.id, (open) => {
       this.open = open
     })
-    eventBus.$on('safeToggled', (safe) => {
+    eventBus.$on('safeToggled' + this.station.id, (safe) => {
       this.safe = safe
     })
   }
@@ -169,7 +250,7 @@ Vue.component('open-checkbox', {
     return { open: this.station.open }
   },
   created() {
-    eventBus.$on('openToggled', (open) => {
+    eventBus.$on('openToggled' + this.station.id, (open) => {
       this.open = open
     })
   }
@@ -192,7 +273,7 @@ Vue.component('open-checkbox-toggle', {
   },
   methods: {
     saveOpen() {
-      eventBus.$emit('openToggled', this.open)
+      eventBus.$emit('openToggled' + this.station.id, this.open)
       axios
         .post("/api/station/" + this.station.id, {
           id: this.station.id,
@@ -213,7 +294,7 @@ Vue.component('open-checkbox-toggle', {
     }
   },
   created() {
-    eventBus.$on('safeToggled', (safe) => {
+    eventBus.$on('safeToggled' + this.station.id, (safe) => {
       this.safe = safe
     })
   }
@@ -231,7 +312,7 @@ Vue.component('safe-checkbox', {
     return { safe: this.station.safe }
   },
   created() {
-    eventBus.$on('safeToggled', (safe) => {
+    eventBus.$on('safeToggled' + this.station.id, (safe) => {
       this.safe = safe
     })
   }
@@ -254,7 +335,7 @@ Vue.component('safe-checkbox-toggle', {
   },
   methods: {
     saveSafe() {
-      eventBus.$emit('safeToggled', this.safe)
+      eventBus.$emit('safeToggled' + this.station.id, this.safe)
       axios
         .post("/api/station/" + this.station.id, {
           id: this.station.id,
@@ -274,7 +355,7 @@ Vue.component('safe-checkbox-toggle', {
     }
   },
   created() {
-    eventBus.$on('openToggled', (open) => {
+    eventBus.$on('openToggled' + this.station.id, (open) => {
       this.open = open
     })
   }
@@ -648,7 +729,8 @@ const appVue = new Vue({
 
       map = new google.maps.Map(document.getElementById('map'), {
         zoom: 3,
-        center: myLatLng
+        center: myLatLng,
+        styles: mapstyle
       });
 
       networkMarkers = this.addNetworkMarkers(map, this.networks);
@@ -728,9 +810,9 @@ const appVue = new Vue({
             title: station.name,
             icon: {
               url: '/helmet.png',
-              size: new google.maps.Size(32, 32),
+              size: new google.maps.Size(24, 24),
               origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(16, 16),
+              anchor: new google.maps.Point(12, 12),
             },
             station,
           })
