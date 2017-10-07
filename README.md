@@ -143,45 +143,45 @@ If you find a bug (the website couldn't handle the query and / or gave undesired
   * **Code:** 200 <br>
     **Content-type** `json` <br>
     **Content:** <br>
-```json
-{
-    "id": 170,
-    "company": "Domoblue",
-    "name": "Onroll",
-    "city": "Las Palmas de Gran Canaria",
-    "country": "ES",
-    "lat": 28.124302,
-    "lng": -15.425994,
-    "hspan": 3541,
-    "vspan": 6552,
-    "clat": 28.120575000000002,
-    "clng": -15.4308645,
-    "stations": [
-        {
-            "id": 5368,
-            "name": "Ciudad Deportiva de Gran Canaria",
-            "empty": 0,
-            "free": 0,
-            "safe": false,
-            "open": false,
-            "time": "2017-10-07T04:23:54.788319051Z",
-            "lat": 28.09111,
-            "lng": -15.41478
-        },
-        {
-            "id": 5369,
-            "name": "Ayuntamiento de las Palmas de Gran Canaria",
-            "empty": 11,
-            "free": 0,
-            "safe": true,
-            "open": true,
-            "time": "2017-10-07T03:24:51.911947478Z",
-            "lat": 28.124643,
-            "lng": -15.428421
-        }
-    ]
-}
-```
+    ```json
+    {
+        "id": 170,
+        "company": "Domoblue",
+        "name": "Onroll",
+        "city": "Las Palmas de Gran Canaria",
+        "country": "ES",
+        "lat": 28.124302,
+        "lng": -15.425994,
+        "hspan": 3541,
+        "vspan": 6552,
+        "clat": 28.120575000000002,
+        "clng": -15.4308645,
+        "stations": [
+            {
+                "id": 5368,
+                "name": "Ciudad Deportiva de Gran Canaria",
+                "empty": 0,
+                "free": 0,
+                "safe": false,
+                "open": false,
+                "time": "2017-10-07T04:23:54.788319051Z",
+                "lat": 28.09111,
+                "lng": -15.41478
+            },
+            {
+                "id": 5369,
+                "name": "Ayuntamiento de las Palmas de Gran Canaria",
+                "empty": 11,
+                "free": 0,
+                "safe": true,
+                "open": true,
+                "time": "2017-10-07T03:24:51.911947478Z",
+                "lat": 28.124643,
+                "lng": -15.428421
+            }
+        ]
+    }
+    ```
  
 * **Error Response:**
 
@@ -236,29 +236,29 @@ If you find a bug (the website couldn't handle the query and / or gave undesired
   * **Code:** 200 <br>
     **Content-type** `json` <br>
     **Content:** <br>
-```json 
-{
-    "id": 5368,
-    "name": "Ciudad Deportiva de Gran Canaria",
-    "empty": 0,
-    "free": 0,
-    "safe": false,
-    "open": false,
-    "time": "2017-10-07T04:23:54.788319051Z",
-    "lat": 28.09111,
-    "lng": -15.41478,
-    "reviews": [
-        {
-            "id": 1,
-            "stationuid": 0,
-            "user": "bob",
-            "time": "2017-10-07T03:39:52.55360974Z",
-            "body": "bob likes",
-            "rating": 4
-        }
-    ]
-}
-```  
+    ```json 
+    {
+        "id": 5368,
+        "name": "Ciudad Deportiva de Gran Canaria",
+        "empty": 0,
+        "free": 0,
+        "safe": false,
+        "open": false,
+        "time": "2017-10-07T04:23:54.788319051Z",
+        "lat": 28.09111,
+        "lng": -15.41478,
+        "reviews": [
+            {
+                "id": 1,
+                "stationuid": 0,
+                "user": "bob",
+                "time": "2017-10-07T03:39:52.55360974Z",
+                "body": "bob likes",
+                "rating": 4
+            }
+        ]
+    }
+    ```  
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br>
@@ -305,44 +305,44 @@ If you find a bug (the website couldn't handle the query and / or gave undesired
 
 * **Data Params**
 
-```json
-    {
-        "id": 5368,
-        "empty": 0,
-        "free": 0,
-        "safe": false,
-        "open": false
-    }
-```
+    ```json
+        {
+            "id": 5368,
+            "empty": 0,
+            "free": 0,
+            "safe": false,
+            "open": false
+        }
+    ```
 
 * **Success Response:**
 
   * **Code:** 200 <br>
     **Content-type** `json` <br>
     **Content:** <br>
-```json 
-{
-    "id": 5368,
-    "name": "Ciudad Deportiva de Gran Canaria",
-    "empty": 0,
-    "free": 0,
-    "safe": false,
-    "open": false,
-    "time": "2017-10-07T04:23:54.788319051Z",
-    "lat": 28.09111,
-    "lng": -15.41478,
-    "reviews": [
-        {
-            "id": 1,
-            "stationuid": 0,
-            "user": "bob",
-            "time": "2017-10-07T03:39:52.55360974Z",
-            "body": "bob likes",
-            "rating": 4
-        }
-    ]
-}
-```  
+    ```json 
+    {
+        "id": 5368,
+        "name": "Ciudad Deportiva de Gran Canaria",
+        "empty": 0,
+        "free": 0,
+        "safe": false,
+        "open": false,
+        "time": "2017-10-07T04:23:54.788319051Z",
+        "lat": 28.09111,
+        "lng": -15.41478,
+        "reviews": [
+            {
+                "id": 1,
+                "stationuid": 0,
+                "user": "bob",
+                "time": "2017-10-07T03:39:52.55360974Z",
+                "body": "bob likes",
+                "rating": 4
+            }
+        ]
+    }
+    ```  
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br>
@@ -405,16 +405,16 @@ If you find a bug (the website couldn't handle the query and / or gave undesired
   * **Code:** 200 <br>
     **Content-type** `json` <br>
     **Content:** <br>
-```json 
-{
-    "id": 3,
-    "stationuid": 5369,
-    "user": "Bob",
-    "time": "2017-10-07T04:30:03.065759205Z",
-    "body": "Bob likes this sunny bike rental station",
-    "rating": 4
-}
-```  
+    ```json 
+    {
+        "id": 3,
+        "stationuid": 5369,
+        "user": "Bob",
+        "time": "2017-10-07T04:30:03.065759205Z",
+        "body": "Bob likes this sunny bike rental station",
+        "rating": 4
+    }
+    ```  
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br>
@@ -461,29 +461,29 @@ If you find a bug (the website couldn't handle the query and / or gave undesired
 
 * **Data Params**
 
-```json
-{
-    "user": "Bob",
-    "body": "Bob likes this sunny bike rental station",
-    "rating": 4
-}
-```
+    ```json
+    {
+        "user": "Bob",
+        "body": "Bob likes this sunny bike rental station",
+        "rating": 4
+    }
+    ```
 
 * **Success Response:**
 
   * **Code:** 200 <br>
     **Content-type** `json` <br>
     **Content:** <br>
-```json 
-{
-    "id": 3,
-    "stationuid": 5369,
-    "user": "Bob",
-    "time": "2017-10-07T04:30:03.065759205Z",
-    "body": "Bob likes this sunny bike rental station",
-    "rating": 4
-}
-```  
+    ```json 
+    {
+        "id": 3,
+        "stationuid": 5369,
+        "user": "Bob",
+        "time": "2017-10-07T04:30:03.065759205Z",
+        "body": "Bob likes this sunny bike rental station",
+        "rating": 4
+    }
+    ```  
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br>
@@ -537,28 +537,27 @@ If you find a bug (the website couldn't handle the query and / or gave undesired
 
 * **Data Params**
 
-```json
-{
-    "body": "Bob likes this sunny bike rental station less now",
-    "rating": 3
-}
-```
-
+    ```json
+    {
+        "body": "Bob likes this sunny bike rental station less now",
+        "rating": 3
+    }
+    ```
 * **Success Response:**
 
   * **Code:** 200 <br>
     **Content-type** `json` <br>
     **Content:** <br>
-```json 
-{
-    "id": 3,
-    "stationuid": 5369,
-    "user": "Bob",
-    "time": "2017-10-07T04:31:03.063826745Z",
-    "body": "Bob likes this sunny bike rental station less now",
-    "rating": 3
-}
-```  
+    ```json 
+    {
+        "id": 3,
+        "stationuid": 5369,
+        "user": "Bob",
+        "time": "2017-10-07T04:31:03.063826745Z",
+        "body": "Bob likes this sunny bike rental station less now",
+        "rating": 3
+    }
+    ```  
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br>
