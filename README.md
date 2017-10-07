@@ -205,35 +205,37 @@ Response
   * **Code:** 200 <br>
     **Content-type** `json` <br>
     **Content:** <br>
-    &nbsp;&nbsp;&nbsp;&nbsp;`[`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"id": 1,`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"company": "Bike U Sp. z o.o.",`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"name": "BBBike",`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"city": "Bielsko-Biała",`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"country": "PL",`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"lat": 49.8225,`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"lng": 19.044444,`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"hspan": 3180,`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"vspan": 5065,`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"clat": 49.807528,`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"clng": 19.035092`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`},`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"id": 2,`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"company": "PBSC",`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"name": "Bixi",`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"city": "Montreal, QC",`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"country": "CA",`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"lat": 45.5086699,`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"lng": -73.55399249999999,`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"hspan": 13681,`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"vspan": 16903,`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"clat": 45.5067486901045,`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"clng": -73.58285039663349`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`},`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`...`<br>
-&nbsp;&nbsp;&nbsp;&nbsp;`]`<br>
+```json
+[
+    {
+        "id": 1,
+        "company": "Bike U Sp. z o.o.",
+        "name": "BBBike",
+        "city": "Bielsko-Biała",
+        "country": "PL",
+        "lat": 49.8225,
+        "lng": 19.044444,
+        "hspan": 3180,
+        "vspan": 5065,
+        "clat": 49.807528,
+        "clng": 19.035092
+    },
+    {
+        "id": 2,
+        "company": "PBSC",
+        "name": "Bixi",
+        "city": "Montreal, QC",
+        "country": "CA",
+        "lat": 45.5086699,
+        "lng": -73.55399249999999,
+        "hspan": 13681,
+        "vspan": 16903,
+        "clat": 45.5067486901045,
+        "clng": -73.58285039663349
+    },
+    ...
+]
+```
  
 * **Error Response:**
 
@@ -262,7 +264,7 @@ Response
 <br>
 <br>
 
-**Get Network Detail**
+**Network Detail**
 ----
   Returns an detailed information on specific bike networks.
 
@@ -289,44 +291,46 @@ Response
   * **Code:** 200 <br>
     **Content-type** `json` <br>
     **Content:** <br>
-&nbsp;&nbsp;&nbsp;&nbsp;`{`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"id": 170,`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"company": "Domoblue",`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"name": "Onroll",`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"city": "Las Palmas de Gran Canaria",`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"country": "ES",`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"lat": 28.124302,`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"lng": -15.425994,`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"hspan": 3541,`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"vspan": 6552,`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"clat": 28.120575000000002,`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"clng": -15.4308645,`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"stations": [`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"id": 5368,`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"name": "Ciudad Deportiva de Gran Canaria",`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"empty": 0,`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"free": 0,`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"safe": false,`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"open": false,`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"time": "2017-10-07T04:23:54.788319051Z",`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"lat": 28.09111,`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"lng": -15.41478`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`},`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`{`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"id": 5369,`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"name": "Ayuntamiento de las Palmas de Gran Canaria",`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"empty": 11,`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"free": 0,`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"safe": true,`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"open": true,`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"time": "2017-10-07T03:24:51.911947478Z",`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"lat": 28.124643,`<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"lng": -15.428421`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`},`<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`...`<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`]`<br>
-&nbsp;&nbsp;&nbsp;&nbsp;`}`<br>
+```json
+{
+    "id": 170,
+    "company": "Domoblue",
+    "name": "Onroll",
+    "city": "Las Palmas de Gran Canaria",
+    "country": "ES",
+    "lat": 28.124302,
+    "lng": -15.425994,
+    "hspan": 3541,
+    "vspan": 6552,
+    "clat": 28.120575000000002,
+    "clng": -15.4308645,
+    "stations": [
+        {
+            "id": 5368,
+            "name": "Ciudad Deportiva de Gran Canaria",
+            "empty": 0,
+            "free": 0,
+            "safe": false,
+            "open": false,
+            "time": "2017-10-07T04:23:54.788319051Z",
+            "lat": 28.09111,
+            "lng": -15.41478
+        },
+        {
+            "id": 5369,
+            "name": "Ayuntamiento de las Palmas de Gran Canaria",
+            "empty": 11,
+            "free": 0,
+            "safe": true,
+            "open": true,
+            "time": "2017-10-07T03:24:51.911947478Z",
+            "lat": 28.124643,
+            "lng": -15.428421
+        },
+        ...
+    ]
+}
+```
  
 * **Error Response:**
 
@@ -349,3 +353,203 @@ Response
     });
   ```
 * **Notes:**<br>
+
+<br>
+<br>
+<br>
+
+**Station Detail**
+----
+  Returns an detailed information on specific station.
+
+* **URL**
+
+  /api/station/:id
+
+* **Method:**
+
+  `GET`
+
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer]`
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br>
+    **Content-type** `json` <br>
+    **Content:** <br>
+```json 
+{
+    "id": 5368,
+    "name": "Ciudad Deportiva de Gran Canaria",
+    "empty": 0,
+    "free": 0,
+    "safe": false,
+    "open": false,
+    "time": "2017-10-07T04:23:54.788319051Z",
+    "lat": 28.09111,
+    "lng": -15.41478,
+    "reviews": [
+        {
+            "id": 1,
+            "stationuid": 0,
+            "user": "bob",
+            "time": "2017-10-07T03:39:52.55360974Z",
+            "body": "bob likes",
+            "rating": 4
+        },
+        ...
+    ]
+}
+```  
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br>
+    **Content:** `{ "error" : "bad station id in request url" }`
+  * **Code:** 404 NOT FOUND <br>
+    **Content:** `{ "error" : "station does not exist" }`
+  * **Code:** 500 INTERNAL SERVER ERROR <br>
+    **Content:** `{ "error" : "retrieving station failed" }`
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/api/station/25",
+      dataType: "json",
+      type : "GET",
+      success : function(station) {
+        console.log(station);
+      }
+    });
+  ```
+* **Notes:**<br>
+
+<br>
+<br>
+<br>
+
+**Update Station**
+----
+  Updates a specific station.
+
+* **URL**
+
+  /api/station/:id
+
+* **Method:**
+
+  `POST`
+
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer]`
+
+* **Data Params**
+
+```json
+    {
+        "id": 5368,
+        "empty": 0,
+        "free": 0,
+        "safe": false,
+        "open": false
+    }
+```
+
+* **Success Response:**
+
+  * **Code:** 200 <br>
+    **Content-type** `json` <br>
+    **Content:** <br>
+```json 
+{
+    "id": 5368,
+    "name": "Ciudad Deportiva de Gran Canaria",
+    "empty": 0,
+    "free": 0,
+    "safe": false,
+    "open": false,
+    "time": "2017-10-07T04:23:54.788319051Z",
+    "lat": 28.09111,
+    "lng": -15.41478,
+    "reviews": [
+        {
+            "id": 1,
+            "stationuid": 0,
+            "user": "bob",
+            "time": "2017-10-07T03:39:52.55360974Z",
+            "body": "bob likes",
+            "rating": 4
+        },
+        ...
+    ]
+}
+```  
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br>
+    **Content:** `{ "error" : "bad station id in request url" }`
+  * **Code:** 404 NOT FOUND <br>
+    **Content:** `{ "error" : "station does not exist" }`
+  * **Code:** 500 INTERNAL SERVER ERROR <br>
+    **Content:** `{ "error" : "retrieving station failed" }`
+* **Sample Call:**
+
+  ```javascript
+    var stationInfo = {
+        id: 25,
+        empty: 6,
+        free: 28,
+        safe: true,
+        open: true
+    };
+    $.ajax({
+      url: "/api/station/25",
+      type : "POST",
+      dataType: "json",
+      data: JSON.stringify(stationInfo),
+      contentType: "application/json; charset=utf-8",
+      success : function(station) {
+        console.log(station);
+      }
+    });
+  ```
+* **Notes:**<br>
+
+<br>
+<br>
+<br>
+
+
+<br><br><br><br><br><br/><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
