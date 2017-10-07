@@ -1,4 +1,6 @@
 # seagull and tuna
-FS bike share gorup project
 
-I got a good feeling about this
+Getting the project:
+Compiling requires sqlite lib, and Golang please consult https://www.sqlite.org/ and https://golang.org/ for latest versions.
+
+go get github.com/getbikesharedone/seagulltuna

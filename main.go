@@ -4,7 +4,9 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
+	"os"
 	"strconv"
 	"time"
 
@@ -21,7 +23,13 @@ func main() {
 	var err error
 	var reBuildDB = flag.Bool("rebuild", false, "rebuild database")
 	var devMode = flag.Bool("dev", false, "use the www directory for serving content")
+	var listen = flag.String("listen", ":9090", "host:port to listen on")
 	flag.Parse()
+
+	if _, err := os.Stat("bsn.db"); os.IsNotExist(err) {
+		fmt.Println("no database")
+		*reBuildDB = true
+	}
 
 	if *reBuildDB {
 		if err := buildDatabase(); err != nil {
@@ -38,7 +46,7 @@ func main() {
 
 	srv := newSrv(*devMode)
 
-	if err := srv.Run(iris.Addr(":9090"), iris.WithoutVersionChecker); err != nil {
+	if err := srv.Run(iris.Addr(*listen), iris.WithoutVersionChecker); err != nil {
 		log.Fatalf("failed to start http server: %v\n", err)
 	}
 }
