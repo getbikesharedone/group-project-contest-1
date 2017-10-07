@@ -58,36 +58,36 @@ If you find a bug (the website couldn't handle the query and / or gave undesired
   * **Code:** 200 <br>
     **Content-type** `json` <br>
     **Content:** <br>
-```json
-[
-    {
-        "id": 1,
-        "company": "Bike U Sp. z o.o.",
-        "name": "BBBike",
-        "city": "Bielsko-Biała",
-        "country": "PL",
-        "lat": 49.8225,
-        "lng": 19.044444,
-        "hspan": 3180,
-        "vspan": 5065,
-        "clat": 49.807528,
-        "clng": 19.035092
-    },
-    {
-        "id": 2,
-        "company": "PBSC",
-        "name": "Bixi",
-        "city": "Montreal, QC",
-        "country": "CA",
-        "lat": 45.5086699,
-        "lng": -73.55399249999999,
-        "hspan": 13681,
-        "vspan": 16903,
-        "clat": 45.5067486901045,
-        "clng": -73.58285039663349
-    }
-]
-```
+    ```json
+    [
+        {
+            "id": 1,
+            "company": "Bike U Sp. z o.o.",
+            "name": "BBBike",
+            "city": "Bielsko-Biała",
+            "country": "PL",
+            "lat": 49.8225,
+            "lng": 19.044444,
+            "hspan": 3180,
+            "vspan": 5065,
+            "clat": 49.807528,
+            "clng": 19.035092
+        },
+        {
+            "id": 2,
+            "company": "PBSC",
+            "name": "Bixi",
+            "city": "Montreal, QC",
+            "country": "CA",
+            "lat": 45.5086699,
+            "lng": -73.55399249999999,
+            "hspan": 13681,
+            "vspan": 16903,
+            "clat": 45.5067486901045,
+            "clng": -73.58285039663349
+        }
+    ]
+    ```
  
 * **Error Response:**
 
