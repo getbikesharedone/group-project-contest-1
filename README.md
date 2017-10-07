@@ -529,27 +529,216 @@ Response
 <br>
 <br>
 
+**Review**
+----
+  Returns an detailed information on specific review.
 
-<br><br><br><br><br><br/><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+* **URL**
 
+  /api/review/:id
 
+* **Method:**
 
+  `GET`
 
+*  **URL Params**
 
+   **Required:**
+ 
+   `id=[integer]`
 
+* **Data Params**
 
+  None
 
+* **Success Response:**
 
+  * **Code:** 200 <br>
+    **Content-type** `json` <br>
+    **Content:** <br>
+```json 
+{
+    "id": 3,
+    "stationuid": 5369,
+    "user": "Bob",
+    "time": "2017-10-07T04:30:03.065759205Z",
+    "body": "Bob likes this sunny bike rental station",
+    "rating": 4
+}
+```  
+* **Error Response:**
 
+  * **Code:** 400 BAD REQUEST <br>
+    **Content:** `{ "error" : "bad review id in request url" }`
+  * **Code:** 404 NOT FOUND <br>
+    **Content:** `{ "error" : "review does not exist" }`
+  * **Code:** 500 INTERNAL SERVER ERROR <br>
+    **Content:** `{ "error" : "retrieving review failed" }`
+* **Sample Call:**
 
+  ```javascript
+    $.ajax({
+      url: "/api/review/3",
+      dataType: "json",
+      type : "GET",
+      success : function(review) {
+        console.log(review);
+      }
+    });
+  ```
+* **Notes:**<br>
 
+<br>
+<br>
+<br>
 
+**Create Review**
+----
+  Creates a review for a specific station.
 
+* **URL**
 
+  /api/station/:id/review
 
+* **Method:**
 
+  `POST`
 
+*  **URL Params**
 
+   **Required:**
+ 
+   `id=[integer]`
 
+* **Data Params**
 
+```json
+{
+    "user": "Bob",
+    "body": "Bob likes this sunny bike rental station",
+    "rating": 4
+}
+```
 
+* **Success Response:**
+
+  * **Code:** 200 <br>
+    **Content-type** `json` <br>
+    **Content:** <br>
+```json 
+{
+    "id": 3,
+    "stationuid": 5369,
+    "user": "Bob",
+    "time": "2017-10-07T04:30:03.065759205Z",
+    "body": "Bob likes this sunny bike rental station",
+    "rating": 4
+}
+```  
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br>
+    **Content:** `{ "error" : "bad station id in request url" }`
+  * **Code:** 404 NOT FOUND <br>
+    **Content:** `{ "error" : "station does not exist" }`
+  * **Code:** 500 INTERNAL SERVER ERROR <br>
+    **Content:** `{ "error" : "create review failed" }`
+* **Sample Call:**
+
+  ```javascript
+    var newReview = {
+        user: "Bob",
+        body: "Bob likes this sunny bike rental station",
+        rating": 4
+    };
+    $.ajax({
+      url: "/api/station/5369/review",
+      type : "POST",
+      dataType: "json",
+      data: JSON.stringify(newReview),
+      contentType: "application/json; charset=utf-8",
+      success : function(review) {
+        console.log(review);
+      }
+    });
+  ```
+* **Notes:**<br>
+
+<br>
+<br>
+<br>
+
+**Edit Review**
+----
+  Edit a specific review.
+
+* **URL**
+
+  /api/review/:id
+
+* **Method:**
+
+  `PUT`
+
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer]`
+
+* **Data Params**
+
+```json
+{
+    "body": "Bob likes this sunny bike rental station less now",
+    "rating": 3
+}
+```
+
+* **Success Response:**
+
+  * **Code:** 200 <br>
+    **Content-type** `json` <br>
+    **Content:** <br>
+```json 
+{
+    "id": 3,
+    "stationuid": 5369,
+    "user": "Bob",
+    "time": "2017-10-07T04:31:03.063826745Z",
+    "body": "Bob likes this sunny bike rental station less now",
+    "rating": 3
+}
+```  
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST <br>
+    **Content:** `{ "error" : "bad review id in request url" }`
+  * **Code:** 404 NOT FOUND <br>
+    **Content:** `{ "error" : "review does not exist" }`
+  * **Code:** 500 INTERNAL SERVER ERROR <br>
+    **Content:** `{ "error" : "edit review failed" }`
+* **Sample Call:**
+
+  ```javascript
+    var editReview = {
+        body: "Bob likes this sunny bike rental station even less now",
+        rating": 2
+    };
+    $.ajax({
+      url: "/api/review/3",
+      type : "PUT",
+      dataType: "json",
+      data: JSON.stringify(editReview),
+      contentType: "application/json; charset=utf-8",
+      success : function(review) {
+        console.log(review);
+      }
+    });
+  ```
+* **Notes:**<br>
+cannot change user.
+
+<br>
+<br>
+<br>
