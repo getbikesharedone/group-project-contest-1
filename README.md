@@ -189,8 +189,6 @@ If you find a bug (the website couldn't handle the query and / or gave undesired
     **Content:** `{ "error" : "bad network id in request url" }`
   * **Code:** 404 NOT FOUND <br>
     **Content:** `{ "error" : "network does not exist" }`
-  * **Code:** 500 INTERNAL SERVER ERROR <br>
-    **Content:** `{ "error" : "retrieving network failed" }`
 * **Sample Call:**
 
   ```javascript
@@ -265,8 +263,6 @@ If you find a bug (the website couldn't handle the query and / or gave undesired
     **Content:** `{ "error" : "bad station id in request url" }`
   * **Code:** 404 NOT FOUND <br>
     **Content:** `{ "error" : "station does not exist" }`
-  * **Code:** 500 INTERNAL SERVER ERROR <br>
-    **Content:** `{ "error" : "retrieving station failed" }`
 * **Sample Call:**
 
   ```javascript
@@ -347,10 +343,14 @@ If you find a bug (the website couldn't handle the query and / or gave undesired
 
   * **Code:** 400 BAD REQUEST <br>
     **Content:** `{ "error" : "bad station id in request url" }`
-  * **Code:** 404 NOT FOUND <br>
-    **Content:** `{ "error" : "station does not exist" }`
+  * **Code:** 400 BAD REQUEST <br>
+    **Content:** `{ "error" : "bad data object in request" }`
+  * **Code:** 400 BAD REQUEST <br>
+    **Content:** `{ "error" : "url station id and object id do not match" }`
+  * **Code:** 400 BAD REQUEST <br>
+    **Content:** `{ "error" : "bad station id in request object" }`
   * **Code:** 500 INTERNAL SERVER ERROR <br>
-    **Content:** `{ "error" : "retrieving station failed" }`
+    **Content:** `{ "error" : "update station failed" }`
 * **Sample Call:**
 
   ```javascript
@@ -421,8 +421,6 @@ If you find a bug (the website couldn't handle the query and / or gave undesired
     **Content:** `{ "error" : "bad review id in request url" }`
   * **Code:** 404 NOT FOUND <br>
     **Content:** `{ "error" : "review does not exist" }`
-  * **Code:** 500 INTERNAL SERVER ERROR <br>
-    **Content:** `{ "error" : "retrieving review failed" }`
 * **Sample Call:**
 
   ```javascript
@@ -487,7 +485,7 @@ If you find a bug (the website couldn't handle the query and / or gave undesired
 * **Error Response:**
 
   * **Code:** 400 BAD REQUEST <br>
-    **Content:** `{ "error" : "bad station id in request url" }`
+    **Content:** `{ "error" : "bad data object in request" }`
   * **Code:** 404 NOT FOUND <br>
     **Content:** `{ "error" : "station does not exist" }`
   * **Code:** 500 INTERNAL SERVER ERROR <br>
@@ -562,6 +560,10 @@ If you find a bug (the website couldn't handle the query and / or gave undesired
 
   * **Code:** 400 BAD REQUEST <br>
     **Content:** `{ "error" : "bad review id in request url" }`
+  * **Code:** 400 BAD REQUEST <br>
+    **Content:** `{ "error" : "bad data object in request" }`
+  * **Code:** 400 BAD REQUEST <br>
+    **Content:** `{ "error" : "review body too long, limit to 250 characters" }`
   * **Code:** 404 NOT FOUND <br>
     **Content:** `{ "error" : "review does not exist" }`
   * **Code:** 500 INTERNAL SERVER ERROR <br>

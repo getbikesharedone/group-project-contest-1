@@ -310,9 +310,9 @@ func TestUpdateStation(t *testing.T) {
 		{name: "random ststion", id: "5364", req: Station{StationID: 5364, EmptySlots: 1200}, content: "application/json", status: 200},
 		{name: "empty id", id: "", req: Station{StationID: 0, EmptySlots: 1200}, content: "", status: 404},
 		{name: "bad id", id: "cats", req: Station{StationID: 0, EmptySlots: 1200}, content: "", status: 404},
-		{name: "miss match request id and station id", id: "1", req: Station{StationID: 2, EmptySlots: 1200}, content: "", status: 400},
+		{name: "miss match request id and station id", id: "100", req: Station{StationID: 2, EmptySlots: 1200}, content: "", status: 400},
 		{name: "missing station id", id: "0", req: Station{EmptySlots: 1200}, content: "", status: 400},
-		{name: "non exist station", id: "1000000", req: Station{StationID: 1000000, EmptySlots: 1200}, content: "", status: 400},
+		{name: "non exist station", id: "1000000", req: Station{StationID: 1000000, EmptySlots: 1200}, content: "", status: 500},
 	}
 
 	for _, tt := range tests {
